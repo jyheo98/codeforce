@@ -1,0 +1,54 @@
+Problem : https://codeforces.com/contest/1368/problem/E
+Code :
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+void solve()
+{
+    int n, m;
+    cin >> n >> m;
+    int i, j;
+    vector<vector<int>> parents(n+1);
+    vector<int> states(n+1);
+    vector<int> ans;
+    for(i=0 ; i<m ; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        parents[y].push_back(x);
+    }
+    int count = 0;
+    for(i=1 ; i<=n ; i++)
+    {
+        for(j=0 ; j<parents[i].size() ; j++)
+        {
+            if(states[parents[i][j]] == 0 && states[i] != 2) states[i] = 1;
+            if(states[parents[i][j]] == 1) states[i] = 2;
+        }
+        if(states[i] == 2)
+        {
+            ans.push_back(i);
+            count++;
+        }
+    }
+    cout << count << "\n";
+    for(i=0 ; i<ans.size() ; i++)
+    {
+        cout << ans[i] << " "; 
+    }
+    cout << "\n";
+}
+ 
+int main() {
+    int tt; 
+    cin >> tt;
+    while(tt--)
+    {
+        solve();
+    }
+    return 0;
+}
